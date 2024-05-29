@@ -42,7 +42,7 @@ def snr(experiment_dir: str | os.PathLike, experiment_name: str) -> None:
             pos_cell_list.append(value[each_ind])
         pos_cells[key] = np.array(pos_cell_list)
 
-    # determine the peak of each stained cells in PC_pos_cells
+    # determine the peak of each stained cells in pos_cells
     pos_spec_peak = {}
     for key, val in pos_cells.items():
         print(key)
