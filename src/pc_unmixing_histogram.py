@@ -111,7 +111,7 @@ def pc_unmixing_histogram(experimental_dir: str | os.PathLike,
                     highest_peak_index = np.argmax(y)
                     neg_threshold = x[highest_peak_index]
 
-                    # if there are too many noise peak of peak[0] which is the negative peak, we need to use the
+                    # if there are too many tiny noise peaks of peak[0] which is the negative peak, we need to use the
                     # smoothed data
                     sigma = 0.98
                     smoothed_data = gaussian_filter(y, sigma)
