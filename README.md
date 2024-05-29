@@ -4,13 +4,12 @@ MuSIC Antibody Unmixing
 
 For specific Python packages, a requirements file has been provided at 'src/requirements.txt'.
 
-Assuming Python is installed, to set up the package environment, run the following command:
+Assuming Python is installed, run the following command to install all necessary dependencies.:
 
 ```sh
 pip install -r requirements.txt
 ```
 
-This will install all necessary dependencies.
 
 ## Usage
 
