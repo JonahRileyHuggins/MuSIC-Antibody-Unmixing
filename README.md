@@ -7,7 +7,7 @@ For specific Python packages, a requirements file has been provided at 'src/requ
 Assuming Python is installed, run the following command to install all necessary dependencies.:
 
 ```sh
-pip install -r requirements.txt
+pip install -r src/requirements.txt
 ```
 
 
