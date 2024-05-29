@@ -4,15 +4,15 @@ PBMC Staining
 
 ## Installation
 
-For specific Python packages, a pre-defined Anaconda environment has been provided in `src/environment.yml`.
+For specific Python packages, a requirements file has been provided at 'src/requirements.txt'.
 
-To set up the environment, run the following command:
+Assuming Python is installed, to set up the package environment, run the following command:
 
 ```sh
-conda env create -f src/environment.yml
+pip install -r requirements.txt
 ```
 
-This will create an Anaconda environment with all the necessary dependencies.
+This will install all necessary dependencies.
 
 ## Usage
 
@@ -29,7 +29,8 @@ python __main__.py
 You can navigate to the `src` directory and run any of the available scripts. For example:
 
 ```sh
-python src/extraction.py
+cd src
+python extraction.py
 ```
 
 Each script in the `src` directory performs specific functions, and you can iterate through them based on your requirements.
