@@ -1,6 +1,4 @@
-# Project Title
-PBMC Staining
-
+MuSIC Antibody Unmixing
 
 ## Installation
 
