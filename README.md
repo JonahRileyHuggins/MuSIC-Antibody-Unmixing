@@ -40,4 +40,3 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For any questions or concerns, please contact Marc Birtwistle at mbirtwi@clemson.edu.
 
-```
