@@ -167,6 +167,7 @@ def oc_unmixing(experiment_dir: str | os.PathLike,
             filename = 'OC_mix_RF' + str(col) + '.png'
             filepath = os.path.join(path, filename)
             plt.savefig(filepath)
+            plt.close()
 
             # get the figure with gating line for paper
             plt.figure(figsize=(6, 4))
@@ -187,6 +188,7 @@ def oc_unmixing(experiment_dir: str | os.PathLike,
             filename2 = 'OC_mix_RF' + str(col) + '.png'
             filepath2 = os.path.join(path2, filename2)
             plt.savefig(filepath2)
+            plt.close()
 
     np.save(f'{experiment_dir}/OC_mix_pos_gating_{experiment_date}.npy', OC_mix_pos_gating, allow_pickle=True)
 
@@ -270,6 +272,7 @@ def oc_unmixing(experiment_dir: str | os.PathLike,
                 filename = 'OC_mix_RF' + str(col) + '.png'
                 filepath = os.path.join(path, filename)
                 plt.savefig(filepath)
+                plt.close()
 
                 # get the figure with gating line for paper
                 plt.figure(figsize=(6, 4))
@@ -290,6 +293,7 @@ def oc_unmixing(experiment_dir: str | os.PathLike,
                 filename2 = 'OC_mix_RF' + str(col) + '.png'
                 filepath2 = os.path.join(path2, filename2)
                 plt.savefig(filepath2)
+                plt.close()
 
                 np.save(f'{experiment_dir}/OC_mix_2_pos_gating_{experiment_date}.npy', OC_mix_pos_gating, allow_pickle=True)
 
