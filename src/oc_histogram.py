@@ -124,6 +124,8 @@ def oc_histogram(experiment_dir: str | os.PathLike,
         filename = key + '.png'
         filepath = os.path.join(path, filename)
         plt.savefig(filepath)
+        plt.close()
+      
     try:
         oc_mix_data_1 = oc_data.pop('4.OC_MIX_1')
         oc_mix_data_2 = oc_data.pop('4.OC_MIX_2')
@@ -316,8 +318,6 @@ def oc_histogram(experiment_dir: str | os.PathLike,
             filename = key + '.png'
             filepath = os.path.join(path, filename)
             plt.savefig(filepath)
-
-
             plt.close()
 
             """
