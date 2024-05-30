@@ -72,7 +72,7 @@ def fig6C_replication(experiment_dir: str | os.PathLike,) -> None:
     filename = 'fig6C.png'
     filepath = os.path.join(path, filename)
     plt.savefig(filepath)
-    plt.close()
+    plt.close(fig)
 
 #------------------------------function call----------------------#
 if __name__ == '__main__':
