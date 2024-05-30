@@ -14,7 +14,7 @@ def fig6C_replication(experiment_dir: str | os.PathLike,) -> None:
     data_list = []
     for key, val in OC_scale_x_single_stained.items():
         total_cells = val.shape[0]
-        print(key, total_cells)
+        # print(key, total_cells)
         for col in range(val.shape[1]):
             RF_list = val[:, col]
             if col > 0:
