@@ -80,7 +80,7 @@ def oc_unmixing_histogram(experimental_dir: str | os.PathLike,
         scale_x = []
         count += 1
         for each_cell in val:
-            x, _ = nnls(OC_RF, each_cell)
+            x, residuals = nnls(OC_RF, each_cell)
             x = np.round(x, decimals=4)
             scale_x.append(x)
         scale_x = np.array(scale_x)
@@ -133,6 +133,9 @@ def oc_unmixing_histogram(experimental_dir: str | os.PathLike,
                     sigma = 0.98
                     smoothed_data = gaussian_filter(y, sigma)
 
+                    if experimental_dir == 'paper_exp041724':
+                        dy_dx = np.gradient(y, x)
+
                     plt.figure(figsize=(6, 4))
                     hist, bins, _ = plt.hist(RF_list, bins=bins_num, color='green', alpha=0.25, label='Reference')
                     plt.plot(x, y, label='curve from histogram')
@@ -169,7 +172,10 @@ def oc_unmixing_histogram(experimental_dir: str | os.PathLike,
                     else:
                         smoothed_data[0] = 0
                         peak, _ = find_peaks(smoothed_data, prominence=max_height * 0.001)
-                        dy_dx = np.gradient(smoothed_data, x)
+                        if experimental_dir == 'paper_exp042224':
+                            dy_dx = np.gradient(y, x)
+                        else:
+                            dy_dx = np.gradient(smoothed_data, x)
                         pos_threshold_bin = np.where(np.diff(np.sign(dy_dx[peak[0]:])) > 0)[0][0] + peak[0]
                         pos_threshold = x[pos_threshold_bin]
 
