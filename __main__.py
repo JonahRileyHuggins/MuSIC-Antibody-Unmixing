@@ -15,12 +15,8 @@ Version: 1.0.0
 
 from src.extraction import file_extraction
 from src.oc_histogram import oc_histogram
-from src.pc_histogram import pc_histogram
 from src.oc_unmixing_histogram import oc_unmixing_histogram
-from src.pc_unmixing_histogram import pc_unmixing_histogram
 from src.oc_mix_unmixing import oc_unmixing
-from src.pc_mix_unmixing import pc_unmixing
-from src.snr import snr
 from src.OC_FI_vs_unmixing import ocfi_vs_unmixing
 from src.fig6b_replication import replicate_fig6B
 from src.fig6C_replication import fig6C_replication
@@ -50,7 +46,6 @@ if __name__ == '__main__':
         # and selectively gate it to obtain high signal to noise positive cells as the 
         # reference of that dye, which provide us the references for the further unmixing.####
         oc_histogram(experiment_dir[i], experiment_date[i])
-        pc_histogram(experiment_dir[i], experiment_date[i])
 
         # Autofluorescence from unstained cells was also considered one of the referece 
         # together with the references for other three dyes, forming the reference list 
@@ -61,7 +56,6 @@ if __name__ == '__main__':
         # in this result array were used to plot histograms to separate the positive and 
         # negative polulation.
         oc_unmixing_histogram(experiment_dir[i], experiment_date[i])
-        pc_unmixing_histogram(experiment_dir[i], experiment_date[i])
 
         # We applied logarithmic scaling to the y_axis to better visualize the distribution
         # of the histograms obtained above for publication.
@@ -71,15 +65,6 @@ if __name__ == '__main__':
         # non-negative least squares (NNLS), as described above, to generate an unmixing
         # weight array.
         oc_unmixing(experiment_dir[i], experiment_date[i])
-        pc_unmixing(experiment_dir[i], experiment_date[i])
-
-        # The SNR script stands for "Signal to Noise Ratio" and the signal is 
-        # the median fluorescence intensity of the unstained cells subtracted from
-        # the median fluorescence intensity of the stained cells. The 
-        # noise is the median fluorescence intensity of the unstained cells. 
-        # The SNR is calculated by dividing the signal of the peak channel of the 
-        # stained cells by the noise from the same channel.
-        snr(experiment_dir[i], experiment_date[i])
 
         # Here, the median fluorescence intensity (MFI) of positive cells in each group was 
         # used to generate the spectrum and identify the peak channel. Each cell’s 
