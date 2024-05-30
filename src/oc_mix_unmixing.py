@@ -147,7 +147,7 @@ def oc_unmixing(experiment_dir: str | os.PathLike,
 
             plt.plot(x, smoothed_data, label='Gaussian smoothed curve')
 
-            plt.xlabel('Unmixed Relative Abundance of PC_mix', fontsize=9)
+            plt.xlabel('Unmixed Relative Abundance of OC_mix', fontsize=9)
             plt.ylabel('Frequency', fontsize=9)
             plt.xticks(fontsize=9)
             plt.yticks(fontsize=9)
@@ -170,7 +170,7 @@ def oc_unmixing(experiment_dir: str | os.PathLike,
             plt.figure(figsize=(6, 4))
             plt.rcParams['font.family'] = 'DejaVu Sans'
             plt.hist(RF_list, bins=bins_num, color='navy', alpha=0.6, label='Reference' + str(col))
-            plt.xlabel('Unmixed Relative Abundance of PC_mix', fontsize=9)
+            plt.xlabel('Unmixed Relative Abundance of OC_mix', fontsize=9)
             plt.ylabel('Frequency', fontsize=9)
             plt.axvline(x=pos_threshold, color='black', linestyle='--', label='positive threshold')
 
@@ -253,7 +253,7 @@ def oc_unmixing(experiment_dir: str | os.PathLike,
 
                 plt.plot(x, smoothed_data, label='Gaussian smoothed curve')
 
-                plt.xlabel('Unmixed Relative Abundance of PC_mix', fontsize=9)
+                plt.xlabel('Unmixed Relative Abundance of OC_mix', fontsize=9)
                 plt.ylabel('Frequency', fontsize=9)
                 plt.xticks(fontsize=9)
                 plt.yticks(fontsize=9)
@@ -272,7 +272,7 @@ def oc_unmixing(experiment_dir: str | os.PathLike,
                 plt.figure(figsize=(6, 4))
                 plt.rcParams['font.family'] = 'DejaVu Sans'
                 plt.hist(RF_list, bins=bins_num, color='navy', alpha=0.6, label='Reference' + str(col))
-                plt.xlabel('Unmixed Relative Abundance of PC_mix', fontsize=9)
+                plt.xlabel('Unmixed Relative Abundance of OC_mix', fontsize=9)
                 plt.ylabel('Frequency', fontsize=9)
                 plt.axvline(x=pos_threshold, color='black', linestyle='--', label='positive threshold')
 
