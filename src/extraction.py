@@ -35,7 +35,6 @@ def file_extraction(experiment_dir: str | os.PathLike,
 
     Output:
     - x_axis_channel.npy: The x-axis labels for the Cytek channels
-    - pc_{experiment_name}.npy: The processed data for positive controls
     - oc_{experiment_name}.npy: The processed data for oligo complexes
     Files are saved in the experiment_name directory.
     """
@@ -48,8 +47,7 @@ def file_extraction(experiment_dir: str | os.PathLike,
           'YG9-A', 'YG10-A', 'R1-A', 'R2-A', 'R3-A', 'R4-A', 'R5-A', 'R6-A', 'R7-A', 'R8-A']
 
 
-    # Dictionaries to store data for positive control (pc) and oligo complex (oc)
-    pc = {}
+    # Dictionaries to store data for oligo complex (oc)
     oc = {}
 
     files = glob.glob(os.path.join(f'{experiment_dir}/csv_files', '*.csv'))
@@ -70,23 +68,6 @@ def file_extraction(experiment_dir: str | os.PathLike,
         
         np.set_printoptions(suppress=True)
 
-        # Categorize the data into pc or oc based on the file name
-        if "unstained" in name:
-            print(name)
-            pc.update({name: data_array})
-            oc.update({name: data_array})
-        elif "PC" in file:
-            print(name) 
-            pc.update({name: data_array})
-        elif "OC" in file:
-            print(name)
-            oc.update({name: data_array})
-
-    # Creating a sorted dictionary for the positive control data
-    pc_final = {}
-    for each_key in sorted(pc.keys()):
-        pc_final[each_key] = pc[each_key]
-
     # Creating a sorted dictionary for the oligo complex data
     oc_final = {}
     for each_key in sorted(oc.keys()):
@@ -94,7 +75,6 @@ def file_extraction(experiment_dir: str | os.PathLike,
 
     # Save the extracted data to numpy files
     np.save(f'{experiment_dir}/x_axis_channel.npy', x_axis)
-    np.save(f'{experiment_dir}/PC_{experiment_date}.npy', pc_final, allow_pickle=True)
     np.save(f'{experiment_dir}/OC_{experiment_date}.npy', oc_final, allow_pickle=True)
 
 
