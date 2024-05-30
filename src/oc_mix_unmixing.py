@@ -67,7 +67,8 @@ def oc_unmixing(experiment_dir: str | os.PathLike,
         scale_x.append(x)
 
     total_cells = len(scale_x)
-    print("total_cells of 4.OC_mix", total_cells)
+    print("4.OC_mix, triple-stained cells")
+    print("total_cells", total_cells)
 
     scale_x = np.array(scale_x)
 
@@ -79,6 +80,7 @@ def oc_unmixing(experiment_dir: str | os.PathLike,
 
         posCell_list = []
         if col > 0:
+            print('RF' + str(col))
             # get both parameters of hist, and bins, bins as the x, hist as the y
             # the original x which is the scale_x should be bins[index] while the original y which is the frequency is hist
             plt.figure(figsize=(6, 4))
@@ -198,7 +200,8 @@ def oc_unmixing(experiment_dir: str | os.PathLike,
             scale_x.append(x)
 
         total_cells = len(scale_x)
-        print("total_cells of 4.OC_mix2", total_cells)
+        print("4.OC_mix2, triple-stained cells")
+        print("total_cells", total_cells)
 
         scale_x = np.array(scale_x)
         # print(scale_x)
@@ -206,13 +209,13 @@ def oc_unmixing(experiment_dir: str | os.PathLike,
         OC_mix_pos_gating = {}
         for col in range(scale_x.shape[1]):
             RF_list = scale_x[:, col]
-            print('RF' + str(col))
             # print(RF_list)
             bins_num = round((max(RF_list) - min(RF_list)) * 100)
             # print('bins_num', bins_num)
 
             posCell_list = []
             if col > 0:
+                print('RF' + str(col))
                 # get both parameters of hist, and bins, bins as the x, hist as the y
                 # the original x which is the scale_x should be bins[index] while the original y which is the frequency is hist
                 plt.figure(figsize=(6, 4))
@@ -233,7 +236,7 @@ def oc_unmixing(experiment_dir: str | os.PathLike,
                 # print('max_height', max_height)
                 sigma = 0.98
                 smoothed_data = gaussian_filter(y, sigma)
-                # since there are too many noise peak of peak[0] which is the negative peak, we need to use the smoothed data
+                # Since there are too many noise peaks of peak[0] which is the negative peak, we need to use the smoothed data
                 dy_dx = np.gradient(smoothed_data, x)
 
                 plt.plot(x, smoothed_data, label='Gaussian smoothed curve')
