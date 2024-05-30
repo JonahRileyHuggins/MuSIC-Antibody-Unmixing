@@ -8,9 +8,10 @@ def replicate_fig6B(experiment_dir: str | os.PathLike):
     dict_0417 = np.load('paper_exp041724/exp041724_6B.npy', allow_pickle=True).item()
     dict_0422 = np.load('paper_exp042224/exp042224_6B.npy', allow_pickle=True).item()
 
+    '''
     for key in dict_0207.keys():
         print(key)
-
+    '''
 
     new_dict = {}
     for key in dict_0207.keys():
@@ -33,7 +34,7 @@ def replicate_fig6B(experiment_dir: str | os.PathLike):
         new_key = key_mapping.get(old_key, old_key)
         final_dict[new_key] = value
 
-    print(final_dict.keys())
+    # print(final_dict.keys())
 
     colors = ['orange', 'gray', 'blue']
     markers = ['o', 's', '^']
