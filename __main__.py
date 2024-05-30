@@ -67,9 +67,10 @@ if __name__ == '__main__':
         oc_unmixing(experiment_dir[i], experiment_date[i])
 
         # Here, the median fluorescence intensity (MFI) of positive cells in each group was 
-        # used to generate the spectrum and identify the peak channel. Each cell’s 
-        # fluorescence value at this peak channel was normalized by dividing it by the group’s 
-        # MFI at the same channel. Similarly, the unmixed value of each cell was normalized by
+        # used to generate the spectrum and identify the peak channel.  
+        # Fluorescence value of each cell in each singly stained cell group at this peak channel 
+        # was normalized by dividing it by the group’s MFI at the same channel. 
+        # Similarly, the unmixed value of each cell in the same cell group was normalized by 
         # dividing it by its corresponding median value to generate the normalized unmixed relative 
         # abundance. The normalized fluorescence intensity in each cell is plotted versus its 
         # normalized unmixed relative abundance from PBMC singly stained with each antibody 
