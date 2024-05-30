@@ -76,7 +76,7 @@ def oc_unmixing_histogram(experimental_dir: str | os.PathLike,
     count = 0
     OC_pos_gating = {}
     for key, val in sorted(OC.items()):
-        print(key, 'singly stained cells')
+        print(key, '， single-stained cells')
         scale_x = []
         count += 1
         for each_cell in val:
