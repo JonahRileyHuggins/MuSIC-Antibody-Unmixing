@@ -62,7 +62,7 @@ def log_y_paper(experiment_dir: str | os.PathLike,
     count = 0
     OC_pos_gating = {}
     for key, val in sorted(OC.items()):
-        print(key)
+        # print(key)
         scale_x = []
         count += 1
         for each_cell in val:
@@ -73,7 +73,7 @@ def log_y_paper(experiment_dir: str | os.PathLike,
         scale_x_single_stained[key] = scale_x
 
         total_cells = len(scale_x)
-        print("total_cells", total_cells)
+        # print("total_cells", total_cells)
 
         for col in range(scale_x.shape[1]):
             RF_list = scale_x[:, col]
@@ -108,6 +108,7 @@ def log_y_paper(experiment_dir: str | os.PathLike,
                 filename4 = key + '_RF' + str(col) + '.png'
                 filepath4 = os.path.join(path4, filename4)
                 plt.savefig(filepath4)
+                plt.close()
 
     np.save(f'{experiment_dir}/OC_scale_x_single_stained.npy', scale_x_single_stained, allow_pickle=True)
 
