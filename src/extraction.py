@@ -66,7 +66,10 @@ def file_extraction(experiment_dir: str | os.PathLike,
 
         data_array = np.round(data_array, decimals=2)
         
-        np.set_printoptions(suppress=True)
+        if "unstained" in name:
+          OC.update({name: data_array})
+        else:
+          OC.update({name: data_array})
 
     # Creating a sorted dictionary for the oligo complex data
     oc_final = {}
