@@ -27,7 +27,7 @@ def fig6C_replication(experiment_dir: str | os.PathLike,) -> None:
         for j in range(3):
             ax = axs[i, j]
             data = data_list[i * 3 + j]
-            print(data)
+            # print(data)
 
             bins_num = round((max(data) - min(data)) * 100) + 1
 
