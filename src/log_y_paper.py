@@ -108,7 +108,7 @@ def log_y_paper(experiment_dir: str | os.PathLike,
                 filename4 = key + '_RF' + str(col) + '.png'
                 filepath4 = os.path.join(path4, filename4)
                 plt.savefig(filepath4)
-                plt.close()
+                plt.close(fig)
 
     np.save(f'{experiment_dir}/OC_scale_x_single_stained.npy', scale_x_single_stained, allow_pickle=True)
 
