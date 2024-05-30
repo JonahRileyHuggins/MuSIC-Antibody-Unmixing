@@ -104,7 +104,7 @@ def oc_unmixing(experiment_dir: str | os.PathLike,
             sigma = 0.98
             smoothed_data = gaussian_filter(y, sigma)
 
-            # since there are too many noise peak of peak[0] which is the negative peak, we need to use the smoothed data
+            # Since there are too many noise peaks of peak[0] which is the negative peak, we need to use the smoothed data
             dy_dx = np.gradient(smoothed_data, x)
 
             plt.plot(x, smoothed_data, label='Gaussian smoothed curve')
