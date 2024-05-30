@@ -115,6 +115,7 @@ def oc_unmixing_histogram(experimental_dir: str | os.PathLike,
                 filename = key + '_RF' + str(col) + '.png'
                 filepath = os.path.join(path1, filename)
                 plt.savefig(filepath)
+                plt.close()
 
                 if col == count:
                     y = []
@@ -196,6 +197,7 @@ def oc_unmixing_histogram(experimental_dir: str | os.PathLike,
                     filename2 = key + '_RF' + str(col) + '.png'
                     filepath2 = os.path.join(path2, filename2)
                     plt.savefig(filepath2)
+                    plt.close()
 
                     # get the figure with gating line for paper
                     plt.figure(figsize=(6, 4))
@@ -216,6 +218,7 @@ def oc_unmixing_histogram(experimental_dir: str | os.PathLike,
                     filename3 = key + '_RF' + str(col) + '.png'
                     filepath3 = os.path.join(path3, filename3)
                     plt.savefig(filepath3)
+                    plt.close()
 
     np.save(f'{experimental_dir}/OC_pos_gating_by_unmixing.npy', OC_pos_gating, allow_pickle=True)
 
