@@ -37,10 +37,10 @@ def ocfi_vs_unmixing(experiment_dir: str | os.PathLike, experiment_date: str) ->
     normalized_FI = {}
     for key, val in OC_data.items():
         total_cells = val.shape[0]
-        print(key, total_cells)
+        # print(key, total_cells)
         FI_val = val[:, OC_peak[key]]
         Median_FI = statistics.median(sorted(FI_val))
-        print('Median of fluorescence intensity', Median_FI)
+        # print('Median of fluorescence intensity', Median_FI)
 
         # normalization to MFI
         nFI_val = np.round(FI_val/Median_FI, decimals=4)
@@ -50,7 +50,7 @@ def ocfi_vs_unmixing(experiment_dir: str | os.PathLike, experiment_date: str) ->
     scale_x = {}
     for key, val in OC_scale_x_single_stained.items():
         total_cells = val.shape[0]
-        print(key, total_cells)
+        # print(key, total_cells)
         count += 1
 
         for col in range(val.shape[1]):
