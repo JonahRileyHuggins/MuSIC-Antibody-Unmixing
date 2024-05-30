@@ -6,13 +6,15 @@ import matplotlib.pyplot as plt
 import os
 from scipy.ndimage import gaussian_filter
 
-def pc_unmixing_histogram(experimental_dir: str | os.PathLike, 
+def pc_unmixing_histogram(experiment_dir: str | os.PathLike, 
                           experimental_date: str) -> None:
     
-    PC = np.load(f'{experimental_dir}/PC_{experimental_date}.npy', allow_pickle=True).item()
-    PC_RF_pos_cells = np.load(f'{experimental_dir}/PC_RF_pos_cells.npy', allow_pickle=True).item()
+    print(experiment_dir)
 
-    x_axis = np.load(f'{experimental_dir}/x_axis_channel.npy')
+    PC = np.load(f'{experiment_dir}/PC_{experimental_date}.npy', allow_pickle=True).item()
+    PC_RF_pos_cells = np.load(f'{experiment_dir}/PC_RF_pos_cells.npy', allow_pickle=True).item()
+
+    x_axis = np.load(f'{experiment_dir}/x_axis_channel.npy')
     channel_num = len(x_axis)
 
     PC_auto_FI = PC.pop('0.unstained')
@@ -74,7 +76,6 @@ def pc_unmixing_histogram(experimental_dir: str | os.PathLike,
         for col in range(scale_x.shape[1]):
             RF_list = scale_x[:, col]
             bins_num = round((max(RF_list) - min(RF_list)) * 100) + 1
-            # print('bins_num', bins_num)
 
             posCell_list = []
             if col > 0:
@@ -94,7 +95,7 @@ def pc_unmixing_histogram(experimental_dir: str | os.PathLike,
                 plt.xticks(fontsize=9)
                 plt.yticks(fontsize=9)
                 plt.tight_layout()
-                path1 = f'{experimental_dir}/3.PC_unmixing_histogram/'
+                path1 = f'{experiment_dir}/3.PC_unmixing_histogram/'
                 filename = key + '_RF' + str(col) + '.png'
                 filepath = os.path.join(path1, filename)
                 plt.savefig(filepath)
@@ -107,29 +108,28 @@ def pc_unmixing_histogram(experimental_dir: str | os.PathLike,
                         y.append(hist[h])
 
                     max_height = np.max(y)
-                    # print('max_height', max_height)
                     highest_peak_index = np.argmax(y)
                     neg_threshold = x[highest_peak_index]
 
-                    # if there are too many tiny noise peaks of peak[0] which is the negative peak, we need to use the
+                    # if there are too many noise peak of peak[0] which is the negative peak, we need to use the
                     # smoothed data
                     sigma = 0.98
                     smoothed_data = gaussian_filter(y, sigma)
-
-                    dy_dx = np.gradient(y, x)
+                    if experiment_dir != 'paper_exp020724':
+                        dy_dx = np.gradient(y, x)
 
                     plt.figure(figsize=(6, 4))
                     hist, bins, _ = plt.hist(RF_list, bins=bins_num, color='green', alpha=0.25, label='Reference')
                     plt.plot(x, y, label='curve from histogram')
                     plt.plot(x, smoothed_data, label='Gaussian smoothed curve')
 
-                    if col == 1:
+                    if col == 1 and experiment_dir != 'paper_exp020724':
                         peak, _ = find_peaks(smoothed_data, prominence=max_height * 0.05)
 
                     else:
                         peak, _ = find_peaks(smoothed_data, prominence=max_height * 0.02)
 
-                    if col != 2:
+                    if col != 2 and experiment_dir != 'paper_exp020724':
                         # find the highest positive peak and its index
                         max_peak_freq = -np.inf
                         max_peak_index = None
@@ -142,7 +142,6 @@ def pc_unmixing_histogram(experimental_dir: str | os.PathLike,
                             elif smoothed_data[each_peak] > max_peak_freq:
                                 max_peak_freq = smoothed_data[each_peak]
                                 max_peak_index = each_peak
-                        # print('max_peak_index', max_peak_index,'max_peak_freq', max_peak_freq)
 
                         if x[peak[0]] > neg_threshold and len(peak) > 1:
                             neg_threshold = x[peak[0]]
@@ -153,22 +152,52 @@ def pc_unmixing_histogram(experimental_dir: str | os.PathLike,
                         for n in range(len(x)):
                             if neg_threshold <= x[n] < x[max_peak_index]:
                                 RF_range.append([n, x[n], smoothed_data[n]])
-                        # print(RF_range)
 
                         valley = min(RF_range, key=lambda y1: y1[2])
-                        # print(valley)
+
                         pos_threshold_bin = int(valley[0])
                         pos_threshold = x[pos_threshold_bin] + bin_width * 0.5
-                        # print("the positive threshold is " + str(pos_threshold))
 
-                    else:
+                    elif col == 2 and experiment_dir != 'paper_exp020724':
+                        print(experiment_dir)
                         if x[peak[0]] > 0.2:
                             y[0] = 0
                             peak, _ = find_peaks(y, prominence=max_height * 0.02)
                         pos_threshold_bin = np.where(np.diff(np.sign(dy_dx[peak[0]:])) > 0)[0][0] + peak[0]
                         pos_threshold = x[pos_threshold_bin]
 
-                    # print("the positive threshold is " + str(pos_threshold))
+                    elif col != 2 and experiment_dir == 'paper_exp020724':
+                    # find the highest positive peak and its index
+                        max_peak_freq = -np.inf
+                        max_peak_index = None
+                        for each_peak in peak:
+                            if col == count:
+                                if x[each_peak] > 0.3 and y[each_peak] > max_peak_freq:
+                                    max_peak_freq = y[each_peak]
+                                    max_peak_index = each_peak
+
+                            elif y[each_peak] > max_peak_freq:
+                                max_peak_freq = y[each_peak]
+                                max_peak_index = each_peak
+
+                        # determine the positive peak bin index for the positive cells which should be in between of the
+                        # main pos_peak and negative_threshold
+                        RF_range = []
+                        for n in range(len(x)):
+                            if neg_threshold <= x[n] < x[max_peak_index]:
+                                RF_range.append([n, x[n], y[n]])
+
+                        valley = min(RF_range, key=lambda y1: y1[2])
+                        pos_threshold_bin = int(valley[0])
+                        pos_threshold = x[pos_threshold_bin]
+
+                    elif col == 2 and experiment_dir == 'paper_exp020724':
+                        if x[peak[0]] > 0.2:
+                            y[0] = 0
+                            peak, _ = find_peaks(y, prominence=max_height * 0.02)
+                        dy_dx = np.gradient(y, x)
+                        pos_threshold_bin = np.where(np.diff(np.sign(dy_dx[peak[0]:])) > 0)[0][0] + peak[0]
+                        pos_threshold = x[pos_threshold_bin]
 
                     for idx in range(len(RF_list)):
                         if RF_list[idx] >= pos_threshold:
@@ -189,7 +218,7 @@ def pc_unmixing_histogram(experimental_dir: str | os.PathLike,
                     plt.ylim(-0.1,500)
                     plt.tight_layout()
 
-                    path2 = f'{experimental_dir}/3.PC_unmixing_histogram/gating/'
+                    path2 = f'{experiment_dir}/3.PC_unmixing_histogram/gating/'
                     filename2 = key + '_RF' + str(col) + '.png'
                     filepath2 = os.path.join(path2, filename2)
                     plt.savefig(filepath2)
@@ -210,12 +239,12 @@ def pc_unmixing_histogram(experimental_dir: str | os.PathLike,
                     plt.yticks(fontsize=9)
                     plt.tight_layout()
 
-                    path3 = f'{experimental_dir}/3.PC_unmixing_histogram/final/'
+                    path3 = f'{experiment_dir}/3.PC_unmixing_histogram/final/'
                     filename3 = key + '_RF' + str(col) + '.png'
                     filepath3 = os.path.join(path3, filename3)
                     plt.savefig(filepath3)
 
-    np.save(f'{experimental_dir}/PC_pos_gating_by_unmixing.npy', PC_pos_gating, allow_pickle=True)
+    np.save(f'{experiment_dir}/PC_pos_gating_by_unmixing.npy', PC_pos_gating, allow_pickle=True)
 
 
 if __name__ == '__main__':
