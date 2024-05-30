@@ -66,7 +66,6 @@ def fig6C_replication(experiment_dir: str | os.PathLike,) -> None:
     y_label_vertical_pos = 0.45
     fig.text(y_label_horizontal_pos, y_label_vertical_pos, y_label, ha='center', fontsize=11, rotation='vertical')
     plt.tight_layout(rect=[0.05, 0.05, 0.95, 0.95])
-    plt.tight_layout()
 
     path = f'{experiment_dir}/3.OC_log_y/subplot/'
     filename = 'fig6C.png'
