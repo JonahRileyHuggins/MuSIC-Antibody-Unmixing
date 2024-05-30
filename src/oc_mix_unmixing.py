@@ -97,7 +97,7 @@ def oc_unmixing(experiment_dir: str | os.PathLike,
 
             max_height = np.max(y)
 
-            print('max_height', max_height)
+            # print('max_height', max_height)
             highest_peak_index = np.argmax(y)
             neg_threshold = x[highest_peak_index]
 
