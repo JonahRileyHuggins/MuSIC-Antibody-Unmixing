@@ -292,7 +292,7 @@ def oc_histogram(experiment_dir: str | os.PathLike,
                     
                     rf_pos_cells.append(each_ind)
 
-            print(f'{experiment_date} total positive cells based on the RF threshold: ', len(rf_pos_cells))
+            # print(f'{experiment_date} total positive cells based on the RF threshold: ', len(rf_pos_cells))
             
             oc_RF_pos_cells[key] = np.array(rf_pos_cells)
 
