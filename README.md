@@ -1,5 +1,8 @@
 # MuSIC Antibody Unmixing
 
+## Code Flowchart
+![Alt text](Code Flowchart.png)
+
 ## Installation
 
 For specific Python packages, a requirements file has been provided at 'src/requirements.txt'.
