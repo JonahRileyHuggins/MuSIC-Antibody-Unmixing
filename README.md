@@ -1,7 +1,7 @@
 # MuSIC Antibody Unmixing
 
 ## Code Flowchart
-![Alt text](Code Flowchart.png)
+![Alt text](Code%20Flowchart.png)
 
 ## Installation
 
